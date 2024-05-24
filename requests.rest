@@ -1,0 +1,40 @@
+### Get Spravka By ID
+GET http://localhost:2004/public/spravka/664f13a2878e26e58b200680
+
+### Create Spravka
+POST http://localhost:2004/api/spravka/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6ImhpcHBvdGVzdCJ9LCJpYXQiOjE3MTY0NTgzNzcsImV4cCI6MTcxNjQ1ODk3N30.VJuCde-GYFH-OpE-72uza-sX55ykJ9hDU6LNy65sVdY
+
+{ 
+    "date":"YYYY-MM-DDTHH:mm:ss.sssZ",
+    "type":"Первого типа",
+    "patient_iin":"909090111111",
+    "patient_firstname":"Иван",
+    "patient_secondname":"Иванов",
+    "patient_middlename":"Иванович",
+    "doctor_name":"Test Doctor No1"
+}
+
+### Create Doctor Record
+POST http://localhost:2004/hid/createdoctor
+Content-Type: application/json
+
+{ 
+    "name": "Test Doctor No1",
+    "user": "hippotest",
+    "pwd": "Testing101!"
+}
+
+### Login Doctor 
+POST http://localhost:2004/auth
+Content-Type: application/json
+
+{ 
+    "user": "hippotest",
+    "pwd": "Testing101!"
+}
+
+### Refresh Token
+GET http://localhost:2004/refresh
+Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhpcHBvdGVzdCIsImlhdCI6MTcxNjI5MzI2MywiZXhwIjoxNzE3MTU3MjYzfQ.-XMjoKMN7xReJAJgm5n7hSeERLXUhEOOK3K1L1a41g8;
