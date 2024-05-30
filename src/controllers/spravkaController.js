@@ -47,8 +47,8 @@ const getAllSpravkas = async (req, res) => {
             id: spravka._id,
             date: spravka.date,
             type: spravka.type,
-            patient_iin: `${spravka.patient_iin.substring(0, 4)}********`,
-            patient_name: `${spravka.patient_secondname} ${spravka.patient_firstname.charAt(0)}. ${spravka.patient_middlename.charAt(0)}.`,
+            patient_iin: spravka.patient_iin,
+            patient_name: `${spravka.patient_secondname} ${spravka.patient_firstname} ${spravka.patient_middlename}`,
             doctor_name: spravka.doctor_name
         }));
         res.json(responseSpravkas);
