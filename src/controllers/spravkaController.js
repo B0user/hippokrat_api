@@ -39,10 +39,12 @@ const getSpravka = async (req, res) => {
 const getAllSpravkas = async (req, res) => {
     const doctorName = req.user?.fullname;
     if (!doctorName) 
-        return res.status(400).json({ error:'DoctorName empty'});
+        return res.status(400).json({ error: 'DoctorName empty' });
+
     try {
         const spravkas = await Spravka.find({ doctor_name: doctorName });
-        if (!spravkas.length) return res.status(404).json({ error: 'No spravkas found for this doctor' });
+        if (!spravkas.length) return res.json([]); // Return an empty array instead of a 404 error
+
         const responseSpravkas = spravkas.map(spravka => ({
             id: spravka._id,
             date: spravka.date,
@@ -51,11 +53,13 @@ const getAllSpravkas = async (req, res) => {
             patient_name: `${spravka.patient_secondname} ${spravka.patient_firstname} ${spravka.patient_middlename}`,
             doctor_name: spravka.doctor_name
         }));
+
         res.json(responseSpravkas);
     } catch (err) {
-        res.status(500).json({ error: 'An error occured getting a spravka'});
+        res.status(500).json({ error: 'An error occurred getting a spravka' });
     }
-}
+};
+
 
 
 
