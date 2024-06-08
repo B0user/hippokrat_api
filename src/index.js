@@ -14,13 +14,13 @@ const PORT = process.env.PORT || 3500;
 
 const app = express();
 
-// CORS configuration
 const corsOptions = {
-    origin: 'http://localhost:3000', // Allow requests from this origin
+    origin: ['http://localhost:3000', 'https://doctor.hippokrat.kz', 'https://spravka.hippokrat.kz'], // Allow requests from these origins
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
     credentials: true // Allow credentials
 };
+
 
 // Use the CORS middleware with the defined options
 app.use(cors(corsOptions));
