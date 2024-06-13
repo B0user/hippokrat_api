@@ -36,6 +36,29 @@ const getSpravka = async (req, res) => {
     }
 }
 
+const getSpravkaAPI = async (req, res) => {
+    const spravkaID = req.params.id;
+    if (!spravkaID) 
+        return res.status(400).json({ error:'SpravkaID empty'});
+    try {
+        const foundSpravka = await Spravka.findById(spravkaID);
+        if (!foundSpravka)
+            return res.status(404).json({ error:'Spravka not found'});
+        let resSpravka = {
+            id: foundSpravka._id,
+            date: foundSpravka.date,
+            type: foundSpravka.type,
+            patient_iin: foundSpravka.patient_iin,
+            patient_name: `${foundSpravka.patient_secondname} ${foundSpravka.patient_firstname} ${foundSpravka.patient_middlename}`,
+            doctor_name: foundSpravka.doctor_name
+        }
+        res.json(resSpravka);
+    } catch (err) {
+        res.status(500).json({ error: 'An error occured getting a spravka'});
+    }
+}
+
+
 const getAllSpravkas = async (req, res) => {
     const doctorName = req.user?.fullname;
     if (!doctorName) 
@@ -67,5 +90,6 @@ const getAllSpravkas = async (req, res) => {
 module.exports = {
     createSpravka,
     getSpravka,
-    getAllSpravkas
+    getAllSpravkas,
+    getSpravkaAPI
 };
